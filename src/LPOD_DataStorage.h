@@ -7,9 +7,8 @@
 
 struct LPOD_data
 {
-    uint16_t Fig1[RUN_TO_PUBLISH];
-    uint16_t Fig2[RUN_TO_PUBLISH];
-    uint16_t Fig3[RUN_TO_PUBLISH];
+    uint16_t Mics[RUN_TO_PUBLISH];
+    uint16_t Mq[RUN_TO_PUBLISH];
     uint16_t CO_Worker[RUN_TO_PUBLISH];
     uint16_t CO_Auxiliary[RUN_TO_PUBLISH];
 

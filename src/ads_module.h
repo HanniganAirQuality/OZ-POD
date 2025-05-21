@@ -4,10 +4,10 @@
  *
  * @cite    XPOD >> ads_module.cpp by Ajay Kandagal, ajka9053@colorado.edu
  *
- * @author  Percy Smith, percy.smith@colorado.edu
- * @date    October 09, 2024
- * @log     Retrofitted ads_module.cpp from LPOD_V1.1.0 --> Particle
- *          Changed to use differential measurements for alphasense
+ * @cite    Percy Smith, percy.smith@colorado.edu
+ * @author  Spencer Hoehl, spencer.hoehl@colorado.edu
+ * @date    May 21, 2025
+ * @log     Renamed Sensor IDs to match OzPod board
 ******************************************************************************/
 #ifndef _ADS_MODULE_H
 #define _ADS_MODULE_H
@@ -17,7 +17,7 @@
 
 #include "LPOD_node.h"
 
-/*! Index: FIG1, FIG2, FIG3, OPEN_CHANNEL, B4_WORKER, VOLT_REF1, B4_AUXILIARY, VOLT_REF2, ADS_SENSOR_COUNT */
+/*! Index: MICS2611, MQ, OPEN_CHANNEL1 OPEN_CHANNEL2, B4_WORKER, VOLT_REF1, B4_AUXILIARY, VOLT_REF2, ADS_SENSOR_COUNT */
 enum ads_sensor_id_e
 {
   MICS = 0,
@@ -43,9 +43,8 @@ struct ads_module_t
 /*! ADS data structure (ALL DATA) as uint16_t */
 struct ads_data
 {
-  uint16_t Fig1;
-  uint16_t Fig2;
-  uint16_t Fig3;
+  uint16_t Mics;
+  uint16_t Mq;
   // uint16_t Unused;
   uint16_t Worker;
   // uint16_t Unused2;

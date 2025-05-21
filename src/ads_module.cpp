@@ -4,10 +4,10 @@
  *
  * @cite    XPOD >> ads_module.cpp by Ajay Kandagal, ajka9053@colorado.edu
  *
- * @author  Percy Smith, percy.smith@colorado.edu
- * @date    October 09, 2024
- * @log     Retrofitted ads_module.cpp from LPOD_V1.1.0 --> Particle
- *          Changed to use differential measurements for alphasense
+ * @cite    Percy Smith, percy.smith@colorado.edu 
+ * @author  Spencer Hoehl, Spencer.hoehl@colorado.edu
+ * @date    May 21, 2025
+ * @log     changed sensor IDs 
 ******************************************************************************/
 #include "ads_module.h"
 
@@ -19,17 +19,17 @@
 /**************************************************************************/
 ADS_Module::ADS_Module()
 {
-  ads_module[FIG1].addr = 0x48;
-  ads_module[FIG1].channel = 0;
+  ads_module[MICS].addr = 0x48;
+  ads_module[MICS].channel = 0;
 
-  ads_module[FIG2].addr = 0x48;
-  ads_module[FIG2].channel = 1;
+  ads_module[MQ].addr = 0x48;
+  ads_module[MQ].channel = 1;
 
-  ads_module[FIG3].addr = 0x48;
-  ads_module[FIG3].channel = 2;
+  ads_module[OPEN_CHANNEL1].addr = 0x48;
+  ads_module[OPEN_CHANNEL1].channel = 2;
 
-  ads_module[OPEN_CHANNEL].addr = 0x48;
-  ads_module[OPEN_CHANNEL].channel = 3;
+  ads_module[OPEN_CHANNEL2].addr = 0x48;
+  ads_module[OPEN_CHANNEL2].channel = 3;
 
   ads_module[B4_WORKER].addr = 0x49;
   ads_module[B4_WORKER].channel = 0; 
@@ -135,14 +135,14 @@ float ADS_Module::read_b4_worker()
 ads_data ADS_Module::return_updated()
 {
   ads_data dataset;
-  dataset.Fig1 = read_raw(FIG1);
+  dataset.Mics = read_raw(MICS);
   delay(100);
-  dataset.Fig2 = read_raw(FIG2);
+  dataset.Mq = read_raw(MQ);
   delay(100);
-  dataset.Fig3 = read_raw(FIG3);
-  delay(100);
+  //dataset.Fig3 = read_raw(FIG3);
+  //delay(100);
   // dataset.Unused = read_raw(OPEN_CHANNEL);
-  delay(100);
+  // delay(100);
   dataset.Worker = read_b4_worker();
   delay(100);
   // dataset.Unused2 = read_raw(VOLT_REF1);

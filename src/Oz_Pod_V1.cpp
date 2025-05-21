@@ -190,15 +190,15 @@ void loop() {
       #endif  //DS3231_ENABLED
       
       #if ADS_ENABLED
-        file.print(ads.Fig1); 
+        file.print(ads.Mics); 
         file.print(F(","));
         delay(100);
-        file.print(ads.Fig2); 
+        file.print(ads.Mq); 
         file.print(F(","));
         delay(100);
-        file.print(ads.Fig3); 
-        file.print(F(","));
-        delay(100);
+        //file.print(ads._); 
+        //file.print(F(","));
+        //delay(100);
         file.print(ads.Worker); 
         file.print(F(","));
         delay(100);
@@ -234,15 +234,15 @@ void loop() {
       #endif  //DS3231_ENABLED
       
       #if ADS_ENABLED
-        Serial.print(ads.Fig1); 
+        Serial.print(ads.Mics); 
         Serial.print(F(","));
         delay(100);
-        Serial.print(ads.Fig2); 
+        Serial.print(ads.Mq); 
         Serial.print(F(","));
         delay(100);
-        Serial.print(ads.Fig3); 
-        Serial.print(F(","));
-        delay(100);
+        //Serial.print(ads._); 
+        //Serial.print(F(","));
+        //delay(100);
         Serial.print(ads.Worker); 
         Serial.print(F(","));
         delay(100);
@@ -267,12 +267,12 @@ void loop() {
     #if CELL_ENABLED
     //Collect data to storage up to size 
       digitalWrite(BLUE_LED, HIGH);
-      lpoddata.Fig1[i] = ads.Fig1;
+      lpoddata.Mics[i] = ads.Mics;
       delay(100);
-      lpoddata.Fig2[i] = ads.Fig2;
+      lpoddata.Mq[i] = ads.Mq;
       delay(100);
-      lpoddata.Fig3[i] = ads.Fig3;
-      delay(100);
+      //lpoddata._[i] = ads._;
+      //delay(100);
       lpoddata.CO_Auxiliary[i] = ads.Auxiliary;
       delay(100);
       lpoddata.CO_Worker[i] = ads.Worker;
@@ -288,26 +288,26 @@ void loop() {
           digitalWrite(BLUE_LED, HIGH);
           digitalWrite(RED_LED, HIGH);
           snprintf(buff, sizeof(buff), 
-          "[[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f]]",
-              lpoddata.Fig1[0], lpoddata.Fig2[0], lpoddata.Fig3[0], lpoddata.CO_Auxiliary[0], lpoddata.CO_Worker[0], lpoddata.Temperature[0], lpoddata.Rel_Humidity[0],
-              lpoddata.Fig1[1], lpoddata.Fig2[1], lpoddata.Fig3[1], lpoddata.CO_Auxiliary[1], lpoddata.CO_Worker[1], lpoddata.Temperature[1], lpoddata.Rel_Humidity[1],
-              lpoddata.Fig1[2], lpoddata.Fig2[2], lpoddata.Fig3[2], lpoddata.CO_Auxiliary[2], lpoddata.CO_Worker[2], lpoddata.Temperature[2], lpoddata.Rel_Humidity[2],
-              lpoddata.Fig1[3], lpoddata.Fig2[3], lpoddata.Fig3[3], lpoddata.CO_Auxiliary[3], lpoddata.CO_Worker[3], lpoddata.Temperature[3], lpoddata.Rel_Humidity[3],
-              lpoddata.Fig1[4], lpoddata.Fig2[4], lpoddata.Fig3[4], lpoddata.CO_Auxiliary[4], lpoddata.CO_Worker[4], lpoddata.Temperature[4], lpoddata.Rel_Humidity[4],
-              lpoddata.Fig1[5], lpoddata.Fig2[5], lpoddata.Fig3[5], lpoddata.CO_Auxiliary[5], lpoddata.CO_Worker[5], lpoddata.Temperature[5], lpoddata.Rel_Humidity[5],
-              lpoddata.Fig1[6], lpoddata.Fig2[6], lpoddata.Fig3[6], lpoddata.CO_Auxiliary[6], lpoddata.CO_Worker[6], lpoddata.Temperature[6], lpoddata.Rel_Humidity[6],
-              lpoddata.Fig1[7], lpoddata.Fig2[7], lpoddata.Fig3[7], lpoddata.CO_Auxiliary[7], lpoddata.CO_Worker[7], lpoddata.Temperature[7], lpoddata.Rel_Humidity[7],
-              lpoddata.Fig1[8], lpoddata.Fig2[8], lpoddata.Fig3[8], lpoddata.CO_Auxiliary[8], lpoddata.CO_Worker[8], lpoddata.Temperature[8], lpoddata.Rel_Humidity[8],
-              lpoddata.Fig1[9], lpoddata.Fig2[9], lpoddata.Fig3[9], lpoddata.CO_Auxiliary[9], lpoddata.CO_Worker[9], lpoddata.Temperature[9], lpoddata.Rel_Humidity[9],
-              lpoddata.Fig1[10], lpoddata.Fig2[10], lpoddata.Fig3[10], lpoddata.CO_Auxiliary[10], lpoddata.CO_Worker[10], lpoddata.Temperature[10], lpoddata.Rel_Humidity[10],
-              lpoddata.Fig1[11], lpoddata.Fig2[11], lpoddata.Fig3[11], lpoddata.CO_Auxiliary[11], lpoddata.CO_Worker[11], lpoddata.Temperature[11], lpoddata.Rel_Humidity[11],
-              lpoddata.Fig1[12], lpoddata.Fig2[12], lpoddata.Fig3[12], lpoddata.CO_Auxiliary[12], lpoddata.CO_Worker[12], lpoddata.Temperature[12], lpoddata.Rel_Humidity[12],
-              lpoddata.Fig1[13], lpoddata.Fig2[13], lpoddata.Fig3[13], lpoddata.CO_Auxiliary[13], lpoddata.CO_Worker[13], lpoddata.Temperature[13], lpoddata.Rel_Humidity[13],
-              lpoddata.Fig1[14], lpoddata.Fig2[14], lpoddata.Fig3[14], lpoddata.CO_Auxiliary[14], lpoddata.CO_Worker[14], lpoddata.Temperature[14], lpoddata.Rel_Humidity[14],
-              lpoddata.Fig1[15], lpoddata.Fig2[15], lpoddata.Fig3[15], lpoddata.CO_Auxiliary[15], lpoddata.CO_Worker[15], lpoddata.Temperature[15], lpoddata.Rel_Humidity[15],
-              lpoddata.Fig1[16], lpoddata.Fig2[16], lpoddata.Fig3[16], lpoddata.CO_Auxiliary[16], lpoddata.CO_Worker[16], lpoddata.Temperature[16], lpoddata.Rel_Humidity[16],
-              lpoddata.Fig1[17], lpoddata.Fig2[17], lpoddata.Fig3[17], lpoddata.CO_Auxiliary[17], lpoddata.CO_Worker[17], lpoddata.Temperature[17], lpoddata.Rel_Humidity[17],
-              lpoddata.Fig1[18], lpoddata.Fig2[18], lpoddata.Fig3[18], lpoddata.CO_Auxiliary[18], lpoddata.CO_Worker[18], lpoddata.Temperature[18], lpoddata.Rel_Humidity[18]);
+          "[[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f]]",
+              lpoddata.Mics[0], lpoddata.Mq[0],  lpoddata.CO_Auxiliary[0], lpoddata.CO_Worker[0], lpoddata.Temperature[0], lpoddata.Rel_Humidity[0],
+              lpoddata.Mics[1], lpoddata.Mq[1],  lpoddata.CO_Auxiliary[1], lpoddata.CO_Worker[1], lpoddata.Temperature[1], lpoddata.Rel_Humidity[1],
+              lpoddata.Mics[2], lpoddata.Mq[2],  lpoddata.CO_Auxiliary[2], lpoddata.CO_Worker[2], lpoddata.Temperature[2], lpoddata.Rel_Humidity[2],
+              lpoddata.Mics[3], lpoddata.Mq[3],  lpoddata.CO_Auxiliary[3], lpoddata.CO_Worker[3], lpoddata.Temperature[3], lpoddata.Rel_Humidity[3],
+              lpoddata.Mics[4], lpoddata.Mq[4], lpoddata.CO_Auxiliary[4], lpoddata.CO_Worker[4], lpoddata.Temperature[4], lpoddata.Rel_Humidity[4],
+              lpoddata.Mics[5], lpoddata.Mq[5],  lpoddata.CO_Auxiliary[5], lpoddata.CO_Worker[5], lpoddata.Temperature[5], lpoddata.Rel_Humidity[5],
+              lpoddata.Mics[6], lpoddata.Mq[6],  lpoddata.CO_Auxiliary[6], lpoddata.CO_Worker[6], lpoddata.Temperature[6], lpoddata.Rel_Humidity[6],
+              lpoddata.Mics[7], lpoddata.Mq[7],  lpoddata.CO_Auxiliary[7], lpoddata.CO_Worker[7], lpoddata.Temperature[7], lpoddata.Rel_Humidity[7],
+              lpoddata.Mics[8], lpoddata.Mq[8], lpoddata.CO_Auxiliary[8], lpoddata.CO_Worker[8], lpoddata.Temperature[8], lpoddata.Rel_Humidity[8],
+              lpoddata.Mics[9], lpoddata.Mq[9],  lpoddata.CO_Auxiliary[9], lpoddata.CO_Worker[9], lpoddata.Temperature[9], lpoddata.Rel_Humidity[9],
+              lpoddata.Mics[10], lpoddata.Mq[10],  lpoddata.CO_Auxiliary[10], lpoddata.CO_Worker[10], lpoddata.Temperature[10], lpoddata.Rel_Humidity[10],
+              lpoddata.Mics[11], lpoddata.Mq[11], lpoddata.CO_Auxiliary[11], lpoddata.CO_Worker[11], lpoddata.Temperature[11], lpoddata.Rel_Humidity[11],
+              lpoddata.Mics[12], lpoddata.Mq[12],  lpoddata.CO_Auxiliary[12], lpoddata.CO_Worker[12], lpoddata.Temperature[12], lpoddata.Rel_Humidity[12],
+              lpoddata.Mics[13], lpoddata.Mq[13],  lpoddata.CO_Auxiliary[13], lpoddata.CO_Worker[13], lpoddata.Temperature[13], lpoddata.Rel_Humidity[13],
+              lpoddata.Mics[14], lpoddata.Mq[14],  lpoddata.CO_Auxiliary[14], lpoddata.CO_Worker[14], lpoddata.Temperature[14], lpoddata.Rel_Humidity[14],
+              lpoddata.Mics[15], lpoddata.Mq[15],  lpoddata.CO_Auxiliary[15], lpoddata.CO_Worker[15], lpoddata.Temperature[15], lpoddata.Rel_Humidity[15],
+              lpoddata.Mics[16], lpoddata.Mq[16],  lpoddata.CO_Auxiliary[16], lpoddata.CO_Worker[16], lpoddata.Temperature[16], lpoddata.Rel_Humidity[16],
+              lpoddata.Mics[17], lpoddata.Mq[17], lpoddata.CO_Auxiliary[17], lpoddata.CO_Worker[17], lpoddata.Temperature[17], lpoddata.Rel_Humidity[17],
+              lpoddata.Mics[18], lpoddata.Mq[18], lpoddata.CO_Auxiliary[18], lpoddata.CO_Worker[18], lpoddata.Temperature[18], lpoddata.Rel_Humidity[18]);
           delay(100);
           Particle.publish(eventName,buff,PRIVATE);
           #if SERIAL_ENABLED
