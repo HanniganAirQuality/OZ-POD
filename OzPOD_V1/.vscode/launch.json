@@ -51,11 +51,8 @@
     },
     {
       "name": "C/C++ Runner: Debug Session",
-      "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/spencerhoehl/Downloads/NASA_Ozone/OZ_Pod/Oz_Pod_V1/src",
-      "program": "/Users/spencerhoehl/Downloads/NASA_Ozone/OZ_Pod/Oz_Pod_V1/src/build/Debug/outDebug"
     }
   ]
 }
