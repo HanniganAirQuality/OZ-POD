@@ -1,6 +1,7 @@
 # Key files
 *.der
 *.pem
+nul
 
 # Ignore build results and bundles
 *.bin
