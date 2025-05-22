@@ -15,7 +15,7 @@
 #include "Particle.h"
 #include "Adafruit_ADS1X15.h"
 
-#include "LPOD_node.h"
+#include "OzPOD_node.h"
 
 /*! Index: MICS2611, MQ, OPEN_CHANNEL1 OPEN_CHANNEL2, B4_WORKER, VOLT_REF1, B4_AUXILIARY, VOLT_REF2, ADS_SENSOR_COUNT */
 enum ads_sensor_id_e

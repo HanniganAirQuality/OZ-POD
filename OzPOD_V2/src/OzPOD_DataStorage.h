@@ -1,12 +1,12 @@
-#ifndef _LPOD_DATASTORAGE_H
-#define _LPOD_DATASTORAGE_H
+#ifndef _OzPOD_DataStorage_h
+#define _OzPOD_DataStorage_h
 
 #include "Particle.h"
 
 #define RUN_TO_PUBLISH      19
 
 struct LPOD_data
-{
+{    
     uint16_t Mics[RUN_TO_PUBLISH];
     uint16_t Mq[RUN_TO_PUBLISH];
     uint16_t CO_Worker[RUN_TO_PUBLISH];

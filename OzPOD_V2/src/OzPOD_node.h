@@ -1,13 +1,13 @@
 /*******************************************************************************
- * @file    LPOD_node.h
+ * @file    OzPOD_node.h
  * @brief   Settings and config
  *
  * @author  Percy Smith, percy.smith@colorado.edu
  * @date    August 6, 2024
- * @log     Retrofitted LPOD_node.h from LPOD_V1.1.0 --> Particle
+ * @log     Retrofitted OzPOD_node.h from LPOD_V1.1.0 --> Particle
 ******************************************************************************/
-#ifndef _LPOD_NODE_H
-#define _LPOD_NODE_H
+#ifndef _OzPOD_node_h
+#define _OzPOD_node_h
 
 #include "Particle.h"
 
@@ -39,4 +39,4 @@
 
 const char lpodID[] = "LPODB2";
 
-#endif // _LPOD_NODE_H
+#endif // _OzPOD_node_h

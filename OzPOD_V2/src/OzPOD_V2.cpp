@@ -13,8 +13,8 @@
 ******************************************************************************/
 // Include Particle Device OS APIs
 #include "Particle.h"
-#include "LPOD_node.h"
-#include "LPOD_DataStorage.h"
+#include "OzPOD_node.h"
+#include "OzPOD_DataStorage.h"
 
 #include "RTClib.h"
 #include "Particle-SdFat/SdFat.h"

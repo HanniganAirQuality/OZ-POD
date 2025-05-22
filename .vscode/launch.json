@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/spencerhoehl/Downloads/NASA_Ozone/OZ-POD/OzPOD_V2/src",
+      "program": "/Users/spencerhoehl/Downloads/NASA_Ozone/OZ-POD/OzPOD_V2/src/build/Debug/outDebug"
+    }
+  ]
+}
