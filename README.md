@@ -2,6 +2,8 @@
 Oz-POD is a ozone sensing pod contracted by NASA Ames and the Bay Area Environmental Research Institute (BAERI) for the purpose of in situ verification of satellite measured ozone data as well as Bay Area community STEM outreach. This project was led by Spencer Hoehl (BS '26) and advised by Percy Smith (BS '24, PhD Candidate) for use by Kristen Okorn (NASA Ames) and Emma Yates (BAERI). 
  
 # Using this Firmware
+USE OzPOD_V3 version
+
 This github repository is updated with the most recent version of the Oz-POD firmware as well as all iterations from the beginning of the development. When pulling code from this repository for the purpose of further development of code or uploading to a particle microcontroller, please follow these steps:
 
 1. Ensure that you have VS code IDE with the particle workbench extension downloaded on your local machine.
@@ -20,4 +22,5 @@ Thanks to Izzy for this suggestion! Here we will be tracking each version of the
 | ------------- | ------------------ | ------------- | -------------      | -------------------------------------- |
 | V1            | Initial Changes    | Spencer       | 05/21/2025         | Initial adaptation of LPOD --> OzPOD code   |
 | V2            | Compile Fix        | Percy         | 05/21/2025         | Fixes incompatibility issues with git & workbench        |
+| V3            | File naming Scheme Change       | Spencer        | 05/22/2025         | Fixed File Names to align with OzPOD project naming scheme      |
 
