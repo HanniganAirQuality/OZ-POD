@@ -3,8 +3,9 @@
  * @brief   Settings and config
  *
  * @author  Percy Smith, percy.smith@colorado.edu
- * @date    August 6, 2024
- * @log     Retrofitted OzPOD_node.h from LPOD_V1.1.0 --> Particle
+ * @date    June 6, 2025
+ * @log     Retrofitted OzPOD_node.h from LPOD_V1.2.0 --> Particle
+ *          Updated CS & LED Pins 
 ******************************************************************************/
 #ifndef _OzPOD_node_h
 #define _OzPOD_node_h
@@ -14,7 +15,7 @@
 /****************** SENSOR CONFIGS ********************/
 #define SERIAL_ENABLED        1
 #define DS3231_ENABLED        1 //I2C
-  #define ADJUST_DATETIME     1
+  #define ADJUST_DATETIME     0
 #define SD_ENABLED            1 //SPI
 #define ADS_ENABLED           1 //I2C
 #define BME_ENABLED           1 //I2C
@@ -24,19 +25,19 @@
 
 /****************** PIN DEFINITIONS ********************/
 //SD Writing Definitions
-#define SD_CS         A2  //Default SS for SPI comms
+#define SD_CS         3  //Default SS for SPI comms
 //LED Definitions
 #define BLUE_LED      2
-#define RED_LED       3
+#define RED_LED       4
 #define GREEN_LED     5
 //External LED Definitions
-#define RED_EXTERNAL        4
-#define GREEN_EXTERNAL      6
+#define RED_EXTERNAL        8
+#define GREEN_EXTERNAL      7
 
 /****************** SET ADDR & CONST ********************/
 #define BME_SENSOR_ADDR       (0x76)
 #define SEALEVELPRESSURE_HPA  (1013.25)
 
-const char lpodID[] = "LPODB2";
+const char lpodID[] = "ZPODO1";
 
 #endif // _OzPOD_node_h
