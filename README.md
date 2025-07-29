@@ -22,5 +22,5 @@ Thanks to Izzy for this suggestion! Here we will be tracking each version of the
 | ------------- | ------------------ | ------------- | -------------      | -------------------------------------- |
 | V1            | Initial Changes    | Spencer       | 05/21/2025         | Initial adaptation of LPOD --> OzPOD code   |
 | V2            | Compile Fix        | Percy         | 05/21/2025         | Fixes incompatibility issues with git & workbench        |
-| V3            | File naming Scheme Change       | Spencer        | 05/22/2025         | Fixed File Names to align with OzPOD project naming scheme      |
+| V3            | File naming Scheme Change       | Spencer        | 05/22/2025         | Fixed File Names to align with OzPOD project naming scheme. Also added software change to allow alphasense to read negative numbers    |
 
