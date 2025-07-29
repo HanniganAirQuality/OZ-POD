@@ -46,9 +46,9 @@ struct ads_data
   uint16_t Mics;
   uint16_t Mq;
   // uint16_t Unused;
-  uint16_t Worker;
+  int16_t Worker;
   // uint16_t Unused2;
-  uint16_t Auxiliary;
+  int16_t Auxiliary;
   // uint16_t Unused3;
 };  //struct ads_heaters
 
@@ -59,8 +59,8 @@ class ADS_Module {
     bool begin();
 
     uint16_t read_raw(ads_sensor_id_e ads_sensor_id);
-    float read_b4_aux();
-    float read_b4_worker();
+    int16_t read_b4_aux();
+    int16_t read_b4_worker();
     ads_data return_updated();
 
   private:
