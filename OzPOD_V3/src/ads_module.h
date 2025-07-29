@@ -6,8 +6,8 @@
  *
  * @cite    Percy Smith, percy.smith@colorado.edu
  * @author  Spencer Hoehl, spencer.hoehl@colorado.edu
- * @date    May 21, 2025
- * @log     Renamed Sensor IDs to match OzPod board
+ * @date    July 29th, 2025
+ * @log     Changed datatype of b4_worker and b4_aux to allow alphasense to read negative values
 ******************************************************************************/
 #ifndef _ADS_MODULE_H
 #define _ADS_MODULE_H
