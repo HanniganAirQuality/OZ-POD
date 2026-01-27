@@ -94,7 +94,7 @@ uint16_t ADS_Module::read_raw(ads_sensor_id_e ads_sensor_id)
  *    @return Raw alphasense Aux readings with reference to V_reference
  */
 /**************************************************************************/
-float ADS_Module::read_b4_aux()
+int16_t ADS_Module::read_b4_aux()
 {
   ads_module_t *sensor = &ads_module[B4_AUXILIARY];//& VREF TOO
 
@@ -113,7 +113,7 @@ float ADS_Module::read_b4_aux()
  *    @return Raw alphasense Worker readings
  */
 /**************************************************************************/
-float ADS_Module::read_b4_worker()
+int16_t ADS_Module::read_b4_worker()
 {
   ads_module_t *sensor = &ads_module[B4_WORKER]; //& VREF TOO
 

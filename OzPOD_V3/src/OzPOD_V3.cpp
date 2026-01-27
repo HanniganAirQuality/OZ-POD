@@ -1,8 +1,8 @@
 /*******************************************************************************
- * @file    OzPOD_V2.cpp
+ * @file    OzPOD_V3.cpp
  * @brief   Central Firmware
  * 
- * @version V2
+ * @version V3
  *
  * @cite   LPOD_Particle_V7 <-- Percy Smith, percy.smith@colorado.edu
  * 

@@ -15,7 +15,7 @@
 /****************** SENSOR CONFIGS ********************/
 #define SERIAL_ENABLED        1
 #define DS3231_ENABLED        1 //I2C
-  #define ADJUST_DATETIME     0
+  #define ADJUST_DATETIME     1
 #define SD_ENABLED            1 //SPI
 #define ADS_ENABLED           1 //I2C
 #define BME_ENABLED           1 //I2C
@@ -31,13 +31,13 @@
 #define RED_LED       4
 #define GREEN_LED     5
 //External LED Definitions
-#define RED_EXTERNAL        8
 #define GREEN_EXTERNAL      7
+#define RED_EXTERNAL        8
 
 /****************** SET ADDR & CONST ********************/
 #define BME_SENSOR_ADDR       (0x76)
 #define SEALEVELPRESSURE_HPA  (1013.25)
 
-const char lpodID[] = "ZPODO1";
+const char lpodID[] = "ZPODO2";
 
 #endif // _OzPOD_node_h

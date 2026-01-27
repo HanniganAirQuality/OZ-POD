@@ -62,5 +62,6 @@
   "C_Cpp_Runner.useLinkTimeOptimization": false,
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "particle.targetPlatform": "boron",
-  "particle.firmwareVersion": "6.2.1"
+  "particle.firmwareVersion": "6.3.3",
+  "particle.targetDevice": ""
 }
