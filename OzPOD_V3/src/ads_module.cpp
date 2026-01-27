@@ -6,8 +6,8 @@
  *
  * @cite    Percy Smith, percy.smith@colorado.edu 
  * @author  Spencer Hoehl, Spencer.hoehl@colorado.edu
- * @date    May 21, 2025
- * @log     changed sensor IDs 
+ * @date    July 29th, 2025
+ * @log     Changed datatype of b4_worker and b4_aux to allow alphasense to read negative values
 ******************************************************************************/
 #include "ads_module.h"
 
