@@ -60,7 +60,7 @@ SYSTEM_MODE(AUTOMATIC); //SEMI_AUTOMATIC "w/threading is recommended combination
   unsigned long cellLastLog;
   // The event name to publish with
   const int char_limit = 864;
-  const char *eventName = "LPODB2";
+  const char *eventName = "wireless-test";
   char buff[char_limit] = ""; 
   int i = 0;
 
@@ -290,7 +290,7 @@ void loop() {
           digitalWrite(BLUE_LED, HIGH);
           digitalWrite(RED_LED, HIGH);
           snprintf(buff, sizeof(buff), 
-          "[[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f]]",
+          "[[%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%2.2f,%2.2f]]",
               lpoddata.Mics[0], lpoddata.Mq[0],  lpoddata.CO_Auxiliary[0], lpoddata.CO_Worker[0], lpoddata.Temperature[0], lpoddata.Rel_Humidity[0],
               lpoddata.Mics[1], lpoddata.Mq[1],  lpoddata.CO_Auxiliary[1], lpoddata.CO_Worker[1], lpoddata.Temperature[1], lpoddata.Rel_Humidity[1],
               lpoddata.Mics[2], lpoddata.Mq[2],  lpoddata.CO_Auxiliary[2], lpoddata.CO_Worker[2], lpoddata.Temperature[2], lpoddata.Rel_Humidity[2],
