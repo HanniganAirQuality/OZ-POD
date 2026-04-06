@@ -23,6 +23,6 @@ Thanks to Izzy for this suggestion! Here we will be tracking each version of the
 | V1            | Initial Changes    | Spencer       | 05/21/2025         | Initial adaptation of LPOD --> OzPOD code   |
 | V2            | Compile Fix        | Percy         | 05/21/2025         | Fixes incompatibility issues with git & workbench        |
 | V3            | File naming Scheme Change       | Spencer        | 05/22/2025         | Fixed File Names to align with OzPOD project naming scheme. Also added software change to allow alphasense to read negative numbers    |
-| V4            | Alphasense Troubleshooting       | Percy        | 04/06/2026         | Swapped worker & aux to reflect accurate channels & added setting for troubleshooting alphasense  |
+| V4*            | Alphasense Troubleshooting       | Percy        | 04/06/2026         | Swapped worker & aux to reflect accurate channels & added setting for troubleshooting alphasense  |
 
-V4 - tested with Boron OS 6.3.3
+*V4 - Channels might swap for alphasense sensor (worker/auxiliary) - tested with Boron OS 6.3.3
