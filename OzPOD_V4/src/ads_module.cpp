@@ -4,10 +4,11 @@
  *
  * @cite    XPOD >> ads_module.cpp by Ajay Kandagal, ajka9053@colorado.edu
  *
- * @cite    Percy Smith, percy.smith@colorado.edu 
  * @author  Spencer Hoehl, Spencer.hoehl@colorado.edu
- * @date    July 29th, 2025
- * @log     Changed datatype of b4_worker and b4_aux to allow alphasense to read negative values
+ * @editor  Percy Smith, percy.smith@colorado.edu
+ * @date    April 03, 2026
+ * @log     Giving increased datapoints to troubleshoot alphasense footprint
+ *          Fixes issues related to naming of aux/main & chan #'s for read
 ******************************************************************************/
 #include "ads_module.h"
 
@@ -92,6 +93,7 @@ uint16_t ADS_Module::read_raw(ads_sensor_id_e ads_sensor_id)
  /*!
  *    @brief  Reads raw AS Aux sensor readings; no signal processing!!
  *    @return Raw alphasense Aux readings with reference to V_reference
+ *            Updated to return 2 & 3 differential which is actually AUX
  */
 /**************************************************************************/
 int16_t ADS_Module::read_b4_aux()
@@ -104,13 +106,14 @@ int16_t ADS_Module::read_b4_aux()
   if (!sensor->status)
     return -999;
 
-  return (sensor->module.readADC_Differential_0_1());
+  return (sensor->module.readADC_Differential_2_3());
 } //float ADS_Module::read_alphasense_worker()
 
 /**************************************************************************/
  /*!
  *    @brief  Reads raw alphasense Worker sensor readings; no signal processing!!
  *    @return Raw alphasense Worker readings
+ *            Updated to return 0 & 1 differential which is actually Main
  */
 /**************************************************************************/
 int16_t ADS_Module::read_b4_worker()
@@ -123,7 +126,7 @@ int16_t ADS_Module::read_b4_worker()
   if (!sensor->status)
     return -999;
 
-  return (sensor->module.readADC_Differential_2_3());
+  return (sensor->module.readADC_Differential_0_1());
 } //float ADS_Module::read_alphasense_worker()
 
 /**************************************************************************/
@@ -145,13 +148,17 @@ ads_data ADS_Module::return_updated()
   // delay(100);
   dataset.Worker = read_b4_worker();
   delay(100);
-  // dataset.Unused2 = read_raw(VOLT_REF1);
-  delay(100);
   dataset.Auxiliary = read_b4_aux();
   delay(100);
-  // dataset.Unused3 = read_raw(VOLT_REF2);
-  delay(100);
-
+  #if AS_4CH_ENABLED 
+    dataset.Volt_Work = read_raw(B4_WORKER);
+    delay(100);
+    dataset.Volt_Ref1 = read_raw(VOLT_REF1);
+    delay(100);
+    dataset.Volt_Aux = read_raw(B4_AUXILIARY);
+    delay(100);
+    dataset.Volt_Ref2 = read_raw(VOLT_REF2);
+    delay(100);
+  #endif //AS_4CH_ENABLED
   return dataset;
 } //ads_data ADS_Module::return_updated()
-

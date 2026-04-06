@@ -15,9 +15,10 @@
 /****************** SENSOR CONFIGS ********************/
 #define SERIAL_ENABLED        1
 #define DS3231_ENABLED        1 //I2C
-  #define ADJUST_DATETIME     1
+  #define ADJUST_DATETIME     0
 #define SD_ENABLED            1 //SPI
 #define ADS_ENABLED           1 //I2C
+  #define AS_4CH_ENABLED      0 //Primarily for Troubleshooting
 #define BME_ENABLED           1 //I2C
 #define CELL_ENABLED          1
 

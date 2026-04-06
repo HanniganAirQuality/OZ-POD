@@ -192,21 +192,32 @@ void loop() {
       #endif  //DS3231_ENABLED
       
       #if ADS_ENABLED
+      // Serial.println(F("you did it"));
+      delay(100);
         file.print(ads.Mics); 
         file.print(F(","));
         delay(100);
         file.print(ads.Mq); 
         file.print(F(","));
         delay(100);
-        //file.print(ads._); 
-        //file.print(F(","));
-        //delay(100);
         file.print(ads.Worker); 
         file.print(F(","));
+        #if AS_4CH_ENABLED
+          file.print(ads.Volt_Work); 
+          file.print(F(","));
+          file.print(ads.Volt_Ref1); 
+          file.print(F(","));
+        #endif //AS_4CH_ENABLED
         delay(100);
         file.print(ads.Auxiliary); 
         file.print(F(","));
-        delay(100);
+        #if AS_4CH_ENABLED
+          file.print(ads.Volt_Aux); 
+          file.print(F(","));
+          file.print(ads.Volt_Ref2); 
+          file.print(F(","));
+          delay(100);
+        #endif //AS_4CH_ENABLED
       #endif  //ADS_ENABLED
 
       #if BME_ENABLED
@@ -236,21 +247,31 @@ void loop() {
       #endif  //DS3231_ENABLED
       
       #if ADS_ENABLED
+      delay(100);
         Serial.print(ads.Mics); 
         Serial.print(F(","));
         delay(100);
         Serial.print(ads.Mq); 
         Serial.print(F(","));
         delay(100);
-        //Serial.print(ads._); 
-        //Serial.print(F(","));
-        //delay(100);
         Serial.print(ads.Worker); 
         Serial.print(F(","));
+        #if AS_4CH_ENABLED
+          Serial.print(ads.Volt_Work); 
+          Serial.print(F(","));
+          Serial.print(ads.Volt_Ref1); 
+          Serial.print(F(","));
+        #endif //#if AS_4CH_ENABLED
         delay(100);
         Serial.print(ads.Auxiliary); 
         Serial.print(F(","));
-        delay(100);
+        #if AS_4CH_ENABLED
+          Serial.print(ads.Volt_Aux); 
+          Serial.print(F(","));
+          Serial.print(ads.Volt_Ref2); 
+          Serial.print(F(","));
+          delay(100);
+        #endif //#if AS_4CH_ENABLED
       #endif  //ADS_ENABLED
 
       #if BME_ENABLED

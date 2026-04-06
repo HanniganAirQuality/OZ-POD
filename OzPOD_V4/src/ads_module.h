@@ -4,10 +4,10 @@
  *
  * @cite    XPOD >> ads_module.cpp by Ajay Kandagal, ajka9053@colorado.edu
  *
- * @cite    Percy Smith, percy.smith@colorado.edu
  * @author  Spencer Hoehl, spencer.hoehl@colorado.edu
- * @date    July 29th, 2025
- * @log     Changed datatype of b4_worker and b4_aux to allow alphasense to read negative values
+ * @editor  Percy Smith, percy.smith@colorado.edu
+ * @date    April 03, 2026
+ * @log     Added storage for datapoints to troubleshoot alphasense footprint
 ******************************************************************************/
 #ifndef _ADS_MODULE_H
 #define _ADS_MODULE_H
@@ -17,7 +17,7 @@
 
 #include "OzPOD_node.h"
 
-/*! Index: MICS2611, MQ, OPEN_CHANNEL1 OPEN_CHANNEL2, B4_WORKER, VOLT_REF1, B4_AUXILIARY, VOLT_REF2, ADS_SENSOR_COUNT */
+/*! Index: MICS2611, MQ, OPEN_CHANNEL1 OPEN_CHANNEL2, B4_WORKER, VOLT_WORK, VOLT_REF1, B4_AUXILIARY, VOLT_AUX, VOLT_REF2, ADS_SENSOR_COUNT */
 enum ads_sensor_id_e
 {
   MICS = 0,
@@ -45,10 +45,14 @@ struct ads_data
 {
   uint16_t Mics;
   uint16_t Mq;
-  // uint16_t Unused;
   int16_t Worker;
-  // uint16_t Unused2;
   int16_t Auxiliary;
+  #if AS_4CH_ENABLED
+    uint16_t Volt_Work;
+    uint16_t Volt_Ref1;
+    uint16_t Volt_Aux;
+    uint16_t Volt_Ref2;
+  #endif //AS_4CH_ENABLED;
   // uint16_t Unused3;
 };  //struct ads_heaters
 
