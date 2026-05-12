@@ -5,6 +5,19 @@
 # author: Percy Smith
 # date: May 12, 2026
 # ==============================================================================
+# NOMENCLATURE CHANGE AT V4:
+#   - V1-V3: Alphasense electrodes named AlphaSense_Main and AlphaSense_Aux
+#   - V4+:   Renamed to AlphaSense_Worker and AlphaSense_Auxiliary to match datasheet terminology
+#            after hardware port assignments were corrected
+# ==============================================================================
+# Sensor Inventory (OzPOD hardware as of V4):
+#   - DS3231: RTC
+#   - MiCS-2611: Ozone (single-ended ADC)
+#   - MQ131: Ozone (single-ended ADC)
+#   - Alphasense B4: Dual-electrode, only tested in B4 footprint (differential ADC)
+#   - BME680: Temperature, Pressure, Humidity, Gas Resistance
+#   - ADS1115 (x2): 16-bit ADC at 0x48 and 0x49
+# ==============================================================================
 # STRUCTURE NOTES:
 #   Each version entry contains:
 #     - date:      when this version was introduced
@@ -15,34 +28,19 @@
 #   Each header has:
 #     - unit:        (required) physical or encoded unit of the value
 #     - dtype:       (required) C/embedded data type as logged by firmware
+#     - format:      (optional) format string, used where encoding is non-obvious
 #     - sensor:      (optional) sensor IC that produced the reading
 #     - adc:         (optional) ADC used for digitization, if applicable
 #     - adc_mode:    (optional) single-ended or differential with channel notation
-#     - format:      (optional) format string, used where encoding is non-obvious
 #     - description: (optional) plain-language notes for analysts and developers
 #
-# NAMING CONVENTION (established V1, applied fleet-wide):
-#   - Full words preferred over abbreviations (Temperature not T, Pressure not P)
-#   - Sensor-prefixed where multiple sensors report the same measurand (MiCS2611_Ozone, MQ131_Ozone)
-#   - Hardware port assignments (D01, D23) are YAML properties only, not in header names
-#   - Casing: PascalCase for compound names, sensor model names preserved as-is
-#
-# NOMENCLATURE CHANGE AT V4:
-#   - V1-V3: Alphasense electrodes named AlphaSense_Main and AlphaSense_Aux
-#   - V4+:   Renamed to AlphaSense_Worker and AlphaSense_Auxiliary to match datasheet terminology
-#            after hardware port assignments were corrected
-#
-# NOTE: Accounts for Cell/SD order swap between AlphaSense channels in V1-V3
+#   Naming convention (established V1, applied fleet-wide):
+#     - Full words preferred over abbreviations (Temperature not T, Pressure not P)
+#     - Sensor-prefixed where multiple sensors report the same measurand (MiCS2611_Ozone, MQ131_Ozone)
+#     - Hardware port assignments (D01, D23) are YAML properties only, not in header names
+#     - Casing: PascalCase for compound names, sensor model names preserved as-is
 # ==============================================================================
 
-# Sensor Inventory (OzPOD hardware as of V4):
-#   - DS3231: RTC
-#   - MiCS-2611: Ozone (single-ended ADC)
-#   - MQ131: Ozone (single-ended ADC)
-#   - Alphasense B4: Dual-electrode, only tested in B4 footprint (differential ADC)
-#   - BME680: Temperature, Pressure, Humidity, Gas Resistance
-#   - ADS1115 (x2): 16-bit ADC at 0x48 and 0x49
---- 
 OzPOD_V1:
   date: 2025-05-21
   changelog: Initial OzPOD firmware; cite LPOD_Particle_V7 (Percy Smith). References
@@ -74,14 +72,14 @@ OzPOD_V1:
       sensor: Alphasense B4
       adc: ADS1115
       adc_mode: differential (2-3)
-      description: Alphasense B4 main electrode (firmware read wrong differential pair in V1-V3; corrected to 0-1 and renamed AlphaSense_Worker in V4)
+      description: Alphasense B4 main (firmware read wrong differential pair in V1-V3; corrected to 0-1 and renamed AlphaSense_Worker in V4)
     AlphaSense_Aux:
       unit: ADU
       dtype: uint16_t
       sensor: Alphasense B4
       adc: ADS1115
       adc_mode: differential (0-1)
-      description: Alphasense B4 auxiliary electrode (firmware read wrong differential pair in V1-V3; corrected to 2-3 and renamed AlphaSense_Auxiliary in V4)
+      description: Alphasense B4 aux (firmware read wrong differential pair in V1-V3; corrected to 2-3 and renamed AlphaSense_Auxiliary in V4)
     Temperature:
       unit: Celsius
       dtype: float
