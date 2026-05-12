@@ -1,0 +1,364 @@
+# ==============================================================================
+# OzPOD Header Log
+# ==============================================================================
+# description: This document logs header changes across versions for certain monitors
+# author: Percy Smith
+# date: May 12, 2026
+# ==============================================================================
+# STRUCTURE NOTES:
+#   Each version entry contains:
+#     - date:      when this version was introduced
+#     - changelog: what changed from the previous version
+#     - SD:        column definitions for SD-logged CSV files (write order preserved)
+#     - Cell:      column definitions for cellular-published CSV files (write order preserved)
+#
+#   Each header has:
+#     - unit:        (required) physical or encoded unit of the value
+#     - dtype:       (required) C/embedded data type as logged by firmware
+#     - sensor:      (optional) sensor IC that produced the reading
+#     - adc:         (optional) ADC used for digitization, if applicable
+#     - adc_addr:    (optional) I2C address of ADC
+#     - adc_channel: (optional) ADC channel or differential pair
+#     - adc_mode:    (optional) single-ended or differential
+#     - format:      (optional) format string, used where encoding is non-obvious
+#     - description: (optional) plain-language notes for analysts and developers
+#
+# NAMING CONVENTION (established V1, applied fleet-wide):
+#   - Full words preferred over abbreviations (Temperature not T, Pressure not P)
+#   - Sensor-prefixed where multiple sensors report the same measurand (MiCS2611_Ozone, MQ131_Ozone)
+#   - Hardware port assignments (D01, D23) are YAML properties only, not in header names
+#   - Casing: PascalCase for compound names, sensor model names preserved as-is
+#
+# NOTE: See README for known Cell quirk regarding AlphaSense_Work/Aux column order.
+# ==============================================================================
+
+OzPOD_V1:
+  date: 2025-05-21
+  changelog: Initial OzPOD firmware; cite LPOD_Particle_V7 (Percy Smith). References
+    LPOD_node.h and LPOD_DataStorage.h (renamed to OzPOD_ from V2 onward).
+    Cellular eventName is "LPODB2".
+  SD:
+    DateTime:
+      unit: timestamp
+      dtype: string
+      format: "YYYY-MM-ddThh:mm:ss"
+      sensor: DS3231
+      description: ISO 8601 timestamp from DS3231 RTC
+    MiCS2611_Ozone:
+      unit: ADU
+      dtype: uint16_t
+      sensor: MiCS-2611
+      adc: ADS1115
+      adc_addr: "0x48"
+      adc_channel: 0
+      adc_mode: single-ended
+      description: MiCS-2611 ozone sensor raw output
+    MQ131_Ozone:
+      unit: ADU
+      dtype: uint16_t
+      sensor: MQ131
+      adc: ADS1115
+      adc_addr: "0x48"
+      adc_channel: 1
+      adc_mode: single-ended
+      description: Winsen MQ131 ozone sensor raw output
+    AlphaSense_Work:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Alphasense B4
+      adc: ADS1115
+      adc_addr: "0x49"
+      adc_channel: "0-1 (differential)"
+      adc_mode: differential
+      description: Alphasense B4 Worker electrode; NOTE hardware port was incorrect
+        in V1-V3 (wired to D23 instead of D01); signal role is correct, port fixed in V4
+    AlphaSense_Aux:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Alphasense B4
+      adc: ADS1115
+      adc_addr: "0x49"
+      adc_channel: "2-3 (differential)"
+      adc_mode: differential
+      description: Alphasense B4 Auxiliary electrode; NOTE hardware port was incorrect
+        in V1-V3 (wired to D01 instead of D23); signal role is correct, port fixed in V4
+    Temperature:
+      unit: Celsius
+      dtype: float
+      sensor: BME680
+    Pressure:
+      unit: Pascals
+      dtype: float
+      sensor: BME680
+    Relative_Humidity:
+      unit: "%RH"
+      dtype: float
+      sensor: BME680
+    BME680_Gas_Resistance:
+      unit: Ohms
+      dtype: uint32_t
+      sensor: BME680
+      description: Raw gas resistance from BME680 VOC heater element; interpret
+        relative to baseline only, not as absolute VOC concentration
+  Cell:
+    # NOTE: AlphaSense_Aux and AlphaSense_Work are swapped relative to SD due
+    # to a known firmware bug in the snprintf field order. Persists through V4. 
+    # Pressure and BME680_Gas_Resistance are absent from cellular publish.
+    MiCS2611_Ozone:
+      unit: ADU
+      dtype: uint16_t
+    MQ131_Ozone:
+      unit: ADU
+      dtype: uint16_t
+    AlphaSense_Aux:
+      unit: ADU
+      dtype: uint16_t
+    AlphaSense_Work:
+      unit: ADU
+      dtype: uint16_t
+    Temperature:
+      unit: Celsius
+      dtype: float
+    Relative_Humidity:
+      unit: "%RH"
+      dtype: float
+
+OzPOD_V2:
+  date: 2025-05-21
+  changelog: Repaired git incompatibility issues between Workbench and Git.
+    Renamed node/storage headers from LPOD_ to OzPOD_. No changes to headers or data types.
+    Cellular eventName remains "LPODB2".
+  SD:
+    DateTime:
+      unit: timestamp
+      dtype: string
+      format: "YYYY-MM-ddThh:mm:ss"
+      sensor: DS3231
+    MiCS2611_Ozone:
+      unit: ADU
+      dtype: uint16_t
+      sensor: MiCS-2611
+      adc: ADS1115
+      adc_addr: "0x48"
+      adc_channel: 0
+      adc_mode: single-ended
+    MQ131_Ozone:
+      unit: ADU
+      dtype: uint16_t
+      sensor: MQ131
+      adc: ADS1115
+      adc_addr: "0x48"
+      adc_channel: 1
+      adc_mode: single-ended
+    AlphaSense_Work:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Alphasense B4
+      adc: ADS1115
+      adc_addr: "0x49"
+      adc_channel: "0-1 (differential)"
+      adc_mode: differential
+    AlphaSense_Aux:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Alphasense B4
+      adc: ADS1115
+      adc_addr: "0x49"
+      adc_channel: "2-3 (differential)"
+      adc_mode: differential
+    Temperature:
+      unit: Celsius
+      dtype: float
+      sensor: BME680
+    Pressure:
+      unit: Pascals
+      dtype: float
+      sensor: BME680
+    Relative_Humidity:
+      unit: "%RH"
+      dtype: float
+      sensor: BME680
+    BME680_Gas_Resistance:
+      unit: Ohms
+      dtype: uint32_t
+      sensor: BME680
+  Cell:
+    MiCS2611_Ozone:
+      unit: ADU
+      dtype: uint16_t
+    MQ131_Ozone:
+      unit: ADU
+      dtype: uint16_t
+    AlphaSense_Aux:
+      unit: ADU
+      dtype: uint16_t
+    AlphaSense_Work:
+      unit: ADU
+      dtype: uint16_t
+    Temperature:
+      unit: Celsius
+      dtype: float
+    Relative_Humidity:
+      unit: "%RH"
+      dtype: float
+
+OzPOD_V3:
+  date: 2025-05-22
+  changelog: Changed both Alphasense outputs (AlphaSense_Work, AlphaSense_Aux) dtype
+    from uint16_t to int16_t to allow negative values from differential reads.
+    Cellular eventName changed from "LPODB2" to "wireless-test".
+  SD:
+    DateTime:
+      unit: timestamp
+      dtype: string
+      format: "YYYY-MM-ddThh:mm:ss"
+      sensor: DS3231
+    MiCS2611_Ozone:
+      unit: ADU
+      dtype: uint16_t
+      sensor: MiCS-2611
+      adc: ADS1115
+      adc_addr: "0x48"
+      adc_channel: 0
+      adc_mode: single-ended
+    MQ131_Ozone:
+      unit: ADU
+      dtype: uint16_t
+      sensor: MQ131
+      adc: ADS1115
+      adc_addr: "0x48"
+      adc_channel: 1
+      adc_mode: single-ended
+    AlphaSense_Work:
+      unit: ADU
+      dtype: int16_t
+      sensor: Alphasense B4
+      adc: ADS1115
+      adc_addr: "0x49"
+      adc_channel: "0-1 (differential)"
+      adc_mode: differential
+    AlphaSense_Aux:
+      unit: ADU
+      dtype: int16_t
+      sensor: Alphasense B4
+      adc: ADS1115
+      adc_addr: "0x49"
+      adc_channel: "2-3 (differential)"
+      adc_mode: differential
+    Temperature:
+      unit: Celsius
+      dtype: float
+      sensor: BME680
+    Pressure:
+      unit: Pascals
+      dtype: float
+      sensor: BME680
+    Relative_Humidity:
+      unit: "%RH"
+      dtype: float
+      sensor: BME680
+    BME680_Gas_Resistance:
+      unit: Ohms
+      dtype: uint32_t
+      sensor: BME680
+  Cell:
+    MiCS2611_Ozone:
+      unit: ADU
+      dtype: uint16_t
+    MQ131_Ozone:
+      unit: ADU
+      dtype: uint16_t
+    AlphaSense_Aux:
+      unit: ADU
+      dtype: int16_t
+    AlphaSense_Work:
+      unit: ADU
+      dtype: int16_t
+    Temperature:
+      unit: Celsius
+      dtype: float
+    Relative_Humidity:
+      unit: "%RH"
+      dtype: float
+
+OzPOD_V4:
+  date: 2026-04-06
+  changelog: Swapped Alphasense Worker/Auxiliary port assignments to match hardware.
+    AlphaSense_Work moved from D23 to D01, AlphaSense_Aux moved from D01 to D23.
+    ads_module.cpp updated to fix naming and differential read channel assignments.
+    Cellular eventName remains "wireless-test".
+  SD:
+    DateTime:
+      unit: timestamp
+      dtype: string
+      format: "YYYY-MM-ddThh:mm:ss"
+      sensor: DS3231
+    MiCS2611_Ozone:
+      unit: ADU
+      dtype: uint16_t
+      sensor: MiCS-2611
+      adc: ADS1115
+      adc_addr: "0x48"
+      adc_channel: 0
+      adc_mode: single-ended
+    MQ131_Ozone:
+      unit: ADU
+      dtype: uint16_t
+      sensor: MQ131
+      adc: ADS1115
+      adc_addr: "0x48"
+      adc_channel: 1
+      adc_mode: single-ended
+    AlphaSense_Work:
+      unit: ADU
+      dtype: int16_t
+      sensor: Alphasense B4
+      adc: ADS1115
+      adc_addr: "0x49"
+      adc_channel: "0-1 (differential)"
+      adc_mode: differential
+      description: Port corrected in V4; now correctly wired to D01 as intended
+    AlphaSense_Aux:
+      unit: ADU
+      dtype: int16_t
+      sensor: Alphasense B4
+      adc: ADS1115
+      adc_addr: "0x49"
+      adc_channel: "2-3 (differential)"
+      adc_mode: differential
+      description: Port corrected in V4; now correctly wired to D23 as intended
+    Temperature:
+      unit: Celsius
+      dtype: float
+      sensor: BME680
+    Pressure:
+      unit: Pascals
+      dtype: float
+      sensor: BME680
+    Relative_Humidity:
+      unit: "%RH"
+      dtype: float
+      sensor: BME680
+    BME680_Gas_Resistance:
+      unit: Ohms
+      dtype: uint32_t
+      sensor: BME680
+  Cell:
+    MiCS2611_Ozone:
+      unit: ADU
+      dtype: uint16_t
+    MQ131_Ozone:
+      unit: ADU
+      dtype: uint16_t
+    AlphaSense_Aux:
+      unit: ADU
+      dtype: int16_t
+    AlphaSense_Work:
+      unit: ADU
+      dtype: int16_t
+    Temperature:
+      unit: Celsius
+      dtype: float
+    Relative_Humidity:
+      unit: "%RH"
+      dtype: float
