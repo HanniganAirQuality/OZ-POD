@@ -2,7 +2,7 @@
 Oz-POD is a ozone sensing pod contracted by NASA Ames and the Bay Area Environmental Research Institute (BAERI) for the purpose of in situ verification of satellite measured ozone data as well as Bay Area community STEM outreach. This project was led by Spencer Hoehl (BS '26) and advised by Percy Smith (BS '24, PhD Candidate) for use by Kristen Okorn (NASA Ames) and Emma Yates (BAERI). 
  
 # Using this Firmware
-USE OzPOD_V3 version
+USE OzPOD_V3 version (Or V4, but note update to header convention)
 
 This github repository is updated with the most recent version of the Oz-POD firmware as well as all iterations from the beginning of the development. When pulling code from this repository for the purpose of further development of code or uploading to a particle microcontroller, please follow these steps:
 
@@ -15,6 +15,8 @@ This github repository is updated with the most recent version of the Oz-POD fir
 
 Important Notes: The <firmware version>.cpp file within the SRC folder is the file that must be compiled and uploaded to the particle microcontroller.  The OzPOD_node.h file is the file where you will configure the board how you desire. You must recompile the .cpp file everytime you update the OzPOD_node.h file. 
 
+# Header Log
+Please see our OzPOD_HeaderLog.yaml to see headers for all versions of the OzPOD. Note that OzPOD_V1 has a Cell & SD header set. All requisite metadata should be present in this file (data units, the data type, etc)
 
 # Update Tracker
 Thanks to Izzy for this suggestion! Here we will be tracking each version of the firmware.
