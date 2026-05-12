@@ -17,9 +17,7 @@
 #     - dtype:       (required) C/embedded data type as logged by firmware
 #     - sensor:      (optional) sensor IC that produced the reading
 #     - adc:         (optional) ADC used for digitization, if applicable
-#     - adc_addr:    (optional) I2C address of ADC
-#     - adc_channel: (optional) ADC channel or differential pair
-#     - adc_mode:    (optional) single-ended or differential
+#     - adc_mode:    (optional) single-ended or differential with channel notation
 #     - format:      (optional) format string, used where encoding is non-obvious
 #     - description: (optional) plain-language notes for analysts and developers
 #
@@ -29,14 +27,26 @@
 #   - Hardware port assignments (D01, D23) are YAML properties only, not in header names
 #   - Casing: PascalCase for compound names, sensor model names preserved as-is
 #
-# NOTE: See README for known Cell quirk regarding AlphaSense_Work/Aux column order.
+# NOMENCLATURE CHANGE AT V4:
+#   - V1-V3: Alphasense electrodes named AlphaSense_Main and AlphaSense_Aux
+#   - V4+:   Renamed to AlphaSense_Worker and AlphaSense_Auxiliary to match datasheet terminology
+#            after hardware port assignments were corrected
+#
+# NOTE: Accounts for Cell/SD order swap between AlphaSense channels in V1-V3
 # ==============================================================================
 
+# Sensor Inventory (OzPOD hardware as of V4):
+#   - DS3231: RTC
+#   - MiCS-2611: Ozone (single-ended ADC)
+#   - MQ131: Ozone (single-ended ADC)
+#   - Alphasense B4: Dual-electrode, only tested in B4 footprint (differential ADC)
+#   - BME680: Temperature, Pressure, Humidity, Gas Resistance
+#   - ADS1115 (x2): 16-bit ADC at 0x48 and 0x49
+--- 
 OzPOD_V1:
   date: 2025-05-21
   changelog: Initial OzPOD firmware; cite LPOD_Particle_V7 (Percy Smith). References
     LPOD_node.h and LPOD_DataStorage.h (renamed to OzPOD_ from V2 onward).
-    Cellular eventName is "LPODB2".
   SD:
     DateTime:
       unit: timestamp
@@ -49,8 +59,6 @@ OzPOD_V1:
       dtype: uint16_t
       sensor: MiCS-2611
       adc: ADS1115
-      adc_addr: "0x48"
-      adc_channel: 0
       adc_mode: single-ended
       description: MiCS-2611 ozone sensor raw output
     MQ131_Ozone:
@@ -58,30 +66,22 @@ OzPOD_V1:
       dtype: uint16_t
       sensor: MQ131
       adc: ADS1115
-      adc_addr: "0x48"
-      adc_channel: 1
       adc_mode: single-ended
       description: Winsen MQ131 ozone sensor raw output
-    AlphaSense_Work:
+    AlphaSense_Main:
       unit: ADU
       dtype: uint16_t
       sensor: Alphasense B4
       adc: ADS1115
-      adc_addr: "0x49"
-      adc_channel: "0-1 (differential)"
-      adc_mode: differential
-      description: Alphasense B4 Worker electrode; NOTE hardware port was incorrect
-        in V1-V3 (wired to D23 instead of D01); signal role is correct, port fixed in V4
+      adc_mode: differential (2-3)
+      description: Alphasense B4 main electrode (firmware read wrong differential pair in V1-V3; corrected to 0-1 and renamed AlphaSense_Worker in V4)
     AlphaSense_Aux:
       unit: ADU
       dtype: uint16_t
       sensor: Alphasense B4
       adc: ADS1115
-      adc_addr: "0x49"
-      adc_channel: "2-3 (differential)"
-      adc_mode: differential
-      description: Alphasense B4 Auxiliary electrode; NOTE hardware port was incorrect
-        in V1-V3 (wired to D01 instead of D23); signal role is correct, port fixed in V4
+      adc_mode: differential (0-1)
+      description: Alphasense B4 auxiliary electrode (firmware read wrong differential pair in V1-V3; corrected to 2-3 and renamed AlphaSense_Auxiliary in V4)
     Temperature:
       unit: Celsius
       dtype: float
@@ -101,8 +101,8 @@ OzPOD_V1:
       description: Raw gas resistance from BME680 VOC heater element; interpret
         relative to baseline only, not as absolute VOC concentration
   Cell:
-    # NOTE: AlphaSense_Aux and AlphaSense_Work are swapped relative to SD due
-    # to a known firmware bug in the snprintf field order. Persists through V4. 
+    # NOTE: AlphaSense_Aux and AlphaSense_Main are swapped relative to SD due
+    # to a known firmware bug in the snprintf field order. Persists through V3.
     # Pressure and BME680_Gas_Resistance are absent from cellular publish.
     MiCS2611_Ozone:
       unit: ADU
@@ -113,7 +113,7 @@ OzPOD_V1:
     AlphaSense_Aux:
       unit: ADU
       dtype: uint16_t
-    AlphaSense_Work:
+    AlphaSense_Main:
       unit: ADU
       dtype: uint16_t
     Temperature:
@@ -122,12 +122,12 @@ OzPOD_V1:
     Relative_Humidity:
       unit: "%RH"
       dtype: float
+---
 
 OzPOD_V2:
   date: 2025-05-21
   changelog: Repaired git incompatibility issues between Workbench and Git.
     Renamed node/storage headers from LPOD_ to OzPOD_. No changes to headers or data types.
-    Cellular eventName remains "LPODB2".
   SD:
     DateTime:
       unit: timestamp
@@ -139,33 +139,27 @@ OzPOD_V2:
       dtype: uint16_t
       sensor: MiCS-2611
       adc: ADS1115
-      adc_addr: "0x48"
-      adc_channel: 0
       adc_mode: single-ended
     MQ131_Ozone:
       unit: ADU
       dtype: uint16_t
       sensor: MQ131
       adc: ADS1115
-      adc_addr: "0x48"
-      adc_channel: 1
       adc_mode: single-ended
-    AlphaSense_Work:
+    AlphaSense_Main:
       unit: ADU
       dtype: uint16_t
       sensor: Alphasense B4
       adc: ADS1115
-      adc_addr: "0x49"
-      adc_channel: "0-1 (differential)"
-      adc_mode: differential
+      adc_mode: differential (2-3)
+      description: Firmware read wrong differential pair in V1-V3; corrected in V4
     AlphaSense_Aux:
       unit: ADU
       dtype: uint16_t
       sensor: Alphasense B4
       adc: ADS1115
-      adc_addr: "0x49"
-      adc_channel: "2-3 (differential)"
-      adc_mode: differential
+      adc_mode: differential (0-1)
+      description: Firmware read wrong differential pair in V1-V3; corrected in V4
     Temperature:
       unit: Celsius
       dtype: float
@@ -192,7 +186,7 @@ OzPOD_V2:
     AlphaSense_Aux:
       unit: ADU
       dtype: uint16_t
-    AlphaSense_Work:
+    AlphaSense_Main:
       unit: ADU
       dtype: uint16_t
     Temperature:
@@ -201,12 +195,12 @@ OzPOD_V2:
     Relative_Humidity:
       unit: "%RH"
       dtype: float
+---
 
 OzPOD_V3:
   date: 2025-05-22
-  changelog: Changed both Alphasense outputs (AlphaSense_Work, AlphaSense_Aux) dtype
+  changelog: Changed both Alphasense outputs (AlphaSense_Main, AlphaSense_Aux) dtype
     from uint16_t to int16_t to allow negative values from differential reads.
-    Cellular eventName changed from "LPODB2" to "wireless-test".
   SD:
     DateTime:
       unit: timestamp
@@ -218,33 +212,27 @@ OzPOD_V3:
       dtype: uint16_t
       sensor: MiCS-2611
       adc: ADS1115
-      adc_addr: "0x48"
-      adc_channel: 0
       adc_mode: single-ended
     MQ131_Ozone:
       unit: ADU
       dtype: uint16_t
       sensor: MQ131
       adc: ADS1115
-      adc_addr: "0x48"
-      adc_channel: 1
       adc_mode: single-ended
-    AlphaSense_Work:
+    AlphaSense_Main:
       unit: ADU
       dtype: int16_t
       sensor: Alphasense B4
       adc: ADS1115
-      adc_addr: "0x49"
-      adc_channel: "0-1 (differential)"
-      adc_mode: differential
+      adc_mode: differential (2-3)
+      description: Firmware read wrong differential pair in V1-V3; corrected in V4
     AlphaSense_Aux:
       unit: ADU
       dtype: int16_t
       sensor: Alphasense B4
       adc: ADS1115
-      adc_addr: "0x49"
-      adc_channel: "2-3 (differential)"
-      adc_mode: differential
+      adc_mode: differential (0-1)
+      description: Firmware read wrong differential pair in V1-V3; corrected in V4
     Temperature:
       unit: Celsius
       dtype: float
@@ -271,7 +259,7 @@ OzPOD_V3:
     AlphaSense_Aux:
       unit: ADU
       dtype: int16_t
-    AlphaSense_Work:
+    AlphaSense_Main:
       unit: ADU
       dtype: int16_t
     Temperature:
@@ -280,13 +268,14 @@ OzPOD_V3:
     Relative_Humidity:
       unit: "%RH"
       dtype: float
+---
 
 OzPOD_V4:
   date: 2026-04-06
-  changelog: Swapped Alphasense Worker/Auxiliary port assignments to match hardware.
-    AlphaSense_Work moved from D23 to D01, AlphaSense_Aux moved from D01 to D23.
-    ads_module.cpp updated to fix naming and differential read channel assignments.
-    Cellular eventName remains "wireless-test".
+  changelog: Firmware differential channel assignments corrected to match actual hardware wiring per Alphasense B4 datasheet.
+    Auxiliary electrode moved from differential (0-1) to (2-3), Worker from (2-3) to (0-1).
+    Renamed AlphaSense_Main to AlphaSense_Worker & AlphaSense_Aux to AlphaSense_Auxiliary to reflect proper electrode roles.
+    ads_module.cpp updated with correct differential read channel assignments.
   SD:
     DateTime:
       unit: timestamp
@@ -298,35 +287,27 @@ OzPOD_V4:
       dtype: uint16_t
       sensor: MiCS-2611
       adc: ADS1115
-      adc_addr: "0x48"
-      adc_channel: 0
       adc_mode: single-ended
     MQ131_Ozone:
       unit: ADU
       dtype: uint16_t
       sensor: MQ131
       adc: ADS1115
-      adc_addr: "0x48"
-      adc_channel: 1
       adc_mode: single-ended
-    AlphaSense_Work:
+    AlphaSense_Worker:
       unit: ADU
       dtype: int16_t
       sensor: Alphasense B4
       adc: ADS1115
-      adc_addr: "0x49"
-      adc_channel: "0-1 (differential)"
-      adc_mode: differential
-      description: Port corrected in V4; now correctly wired to D01 as intended
-    AlphaSense_Aux:
+      adc_mode: differential (0-1)
+      description: Worker electrode; firmware corrected to read proper differential pair (0-1) in V4, renamed from AlphaSense_Main
+    AlphaSense_Auxiliary:
       unit: ADU
       dtype: int16_t
       sensor: Alphasense B4
       adc: ADS1115
-      adc_addr: "0x49"
-      adc_channel: "2-3 (differential)"
-      adc_mode: differential
-      description: Port corrected in V4; now correctly wired to D23 as intended
+      adc_mode: differential (2-3)
+      description: Auxiliary electrode; firmware corrected to read proper differential pair (2-3) in V4
     Temperature:
       unit: Celsius
       dtype: float
@@ -350,10 +331,10 @@ OzPOD_V4:
     MQ131_Ozone:
       unit: ADU
       dtype: uint16_t
-    AlphaSense_Aux:
+    AlphaSense_Auxiliary:
       unit: ADU
       dtype: int16_t
-    AlphaSense_Work:
+    AlphaSense_Worker:
       unit: ADU
       dtype: int16_t
     Temperature:
