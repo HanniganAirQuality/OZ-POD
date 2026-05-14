@@ -45,6 +45,9 @@ OzPOD_V1:
   date: 2025-05-21
   changelog: Initial OzPOD firmware; cite LPOD_Particle_V7 (Percy Smith). References
     LPOD_node.h and LPOD_DataStorage.h (renamed to OzPOD_ from V2 onward).
+  SD_fileinfo:  
+    FileName: OzPODID_YYYY_MM_dd
+    FileType: .CSV
   SD:
     DateTime:
       unit: timestamp
@@ -125,6 +128,9 @@ OzPOD_V2:
   date: 2025-05-21
   changelog: Repaired git incompatibility issues between Workbench and Git.
     Renamed node/storage headers from LPOD_ to OzPOD_. No changes to headers or data types.
+  SD_fileinfo:  
+    FileName: OzPODID_YYYY_MM_dd
+    FileType: .CSV
   SD:
     DateTime:
       unit: timestamp
@@ -197,6 +203,9 @@ OzPOD_V3:
   date: 2025-05-22
   changelog: Changed both Alphasense outputs (Alphasense_Main, Alphasense_Aux) dtype
     from uint16_t to int16_t to allow negative values from differential reads.
+  SD_fileinfo:  
+    FileName: OzPODID_YYYY_MM_dd
+    FileType: .CSV
   SD:
     DateTime:
       unit: timestamp
@@ -271,6 +280,9 @@ OzPOD_V4:
     Auxiliary electrode moved from differential (0-1) to (2-3), Worker from (2-3) to (0-1).
     Renamed Alphasense_Main to Alphasense_Worker & Alphasense_Aux to Alphasense_Auxiliary to reflect proper electrode roles.
     ads_module.cpp updated with correct differential read channel assignments.
+  SD_fileinfo:  
+    FileName: OzPODID_YYYY_MM_dd
+    FileType: .CSV
   SD:
     DateTime:
       unit: timestamp
